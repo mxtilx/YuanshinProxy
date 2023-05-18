@@ -34,9 +34,14 @@ jobs:
         run: |
           bash ./gradlew assembleRelease
 
-      - name: Sign Release APK
-        if: success()
-        id: sign_release
-        uses: r0adkll/sign-android-release@v1.0.4
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3
         with:
-          releaseDirectory: ./app/build/outputs/apk/release
+          name: pakLancher
+          path: ./app/build/outputs/apk/release
+          retention-days: 90
+          tag_name: "apkLancher"
+          prerelease: false
+          title: "Release Build"
+          files: |
+                *.zip
